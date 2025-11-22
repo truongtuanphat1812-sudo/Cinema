@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Xem Phim Đơn Giản</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Thanh header -->
+    <header style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <!-- Tiêu đề trang -->
+        <h1>🎬 Website Xem Phim</h1>
+
+        <!-- Nút đăng nhập -->
+        <button class="login-btn" onclick="window.location.href='dangnhap.html'">Đăng nhập</button>
+    </header>
+    
+    <!-- Ô tìm kiếm -->
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Nhập tên phim...">
+        <button onclick="timKiemPhim()">Tìm kiếm</button>
+    </div>
+    
+    <!-- Hiển thị phim -->
+    <div id="movieList"></div>
+    
+    <!-- Script JavaScript -->
+    <script src="movie.js"></script>
+</body>
+</html>

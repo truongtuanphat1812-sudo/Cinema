@@ -1,0 +1,255 @@
+/* =========================
+   CSS Website Xem Phim Huyền Bí Hoàn Chỉnh
+   ========================= */
+
+/* Font từ Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins&display=swap');
+
+/* -------------------------
+   Thiết lập chung
+------------------------- */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #0d0d0d; /* nền đen huyền bí */
+    color: #eee;
+}
+
+/* -------------------------
+   Header + tiêu đề
+------------------------- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    background: linear-gradient(45deg, #ff1a75, #ff4c60, #ff9900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+        0 0 5px #ff1a75,
+        0 0 10px #ff1a75,
+        0 0 20px #ff4c60,
+        0 0 30px #ff9900;
+    animation: neonGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    0% {
+        text-shadow:
+            0 0 5px #ff1a75,
+            0 0 10px #ff1a75,
+            0 0 20px #ff4c60,
+            0 0 30px #ff9900;
+    }
+    50% {
+        text-shadow:
+            0 0 10px #ff4c60,
+            0 0 20px #ff4c60,
+            0 0 30px #ff9900,
+            0 0 40px #ffcc00;
+    }
+    100% {
+        text-shadow:
+            0 0 15px #ff4c60,
+            0 0 30px #ff9900,
+            0 0 45px #ffcc00,
+            0 0 60px #ffcc00;
+    }
+}
+
+/* -------------------------
+   Nút đăng nhập
+------------------------- */
+.login-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Orbitron', sans-serif;
+    color: #ff4c60;
+    background: transparent;
+    border: 2px solid #ff4c60;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.login-btn:hover {
+    background: #ff4c60;
+    color: #fff;
+    box-shadow: 0 0 10px #ff4c60, 0 0 20px #ff4c60;
+    transform: scale(1.05);
+}
+
+/* -------------------------
+   Ô tìm kiếm
+------------------------- */
+.search-box {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.search-box input {
+    padding: 12px 20px;
+    width: 320px;
+    max-width: 90%;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+    background: #1a1a1a;
+    color: #fff;
+    box-shadow: 0 0 10px #ff4c60 inset, 0 0 20px #ff4c60 inset;
+    transition: all 0.3s ease;
+}
+
+.search-box input::placeholder {
+    color: #aaa;
+}
+
+.search-box input:focus {
+    box-shadow: 0 0 20px #ff4c60 inset, 0 0 40px #ff4c60 inset;
+}
+
+.search-box button {
+    padding: 12px 25px;
+    background-color: #ff4c60;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #ff4c60, 0 0 20px #ff4c60;
+}
+
+.search-box button:hover {
+    background-color: #e03b50;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff4c60, 0 0 40px #ff4c60;
+}
+
+/* -------------------------
+   Danh sách phim
+------------------------- */
+#movieList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* -------------------------
+   Card phim
+------------------------- */
+.movie-card {
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px #ff4c60, 0 10px 30px rgba(0,0,0,0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.movie-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255,76,96,0.2), transparent 70%);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+.movie-card:hover::before {
+    top: -40%;
+    left: -40%;
+}
+
+.movie-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px #ff4c60, 0 15px 40px rgba(0,0,0,0.8);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
+    position: relative;
+}
+
+.movie-card img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff4c60, 0 0 30px #ff4c60;
+}
+
+.movie-card h3 {
+    margin: 10px 0 5px 0;
+    color: #ff4c60;
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 0 0 5px #ff4c60;
+    z-index: 1;
+    position: relative;
+}
+
+.movie-card p {
+    margin: 5px 0;
+    color: #ccc;
+    font-size: 14px;
+    z-index: 1;
+    position: relative;
+}
+
+/* -------------------------
+   Responsive
+------------------------- */
+@media (max-width: 768px) {
+    .search-box input {
+        width: 200px;
+    }
+    
+    #movieList {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+    }
+
+    .movie-card img {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .search-box button, .search-box input {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .movie-card img {
+        height: 200px;
+    }
+}
