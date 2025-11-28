@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản lý NeonFlix</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #111;
+            color: #fff;
+        }
+        h1, h2 { text-align: center; }
+        .nav { display:flex; justify-content: space-between; margin-bottom: 20px; }
+        .nav button { margin-left: 10px; padding: 5px 10px; cursor: pointer; }
+        .form-control { margin-bottom: 10px; }
+        input[type="text"], input[type="url"] { padding: 5px; width: 100%; }
+        button { cursor: pointer; background: #ff0066; border: none; color: #fff; padding: 5px 10px; margin-top: 5px; }
+        .movie-item { background: #222; padding: 10px; margin-bottom: 10px; display:flex; justify-content: space-between; align-items: center; border-radius: 5px; }
+        .movie-item img { width: 50px; height: auto; margin-right: 10px; }
+        .movie-actions button { margin-left: 5px; }
+    </style>
+</head>
+<body>
+
+    <header class="nav">
+        <h2>⚙️ Quản lý NeonFlix</h2>
+        <div class="nav-menu">
+            <button onclick="window.location.href='index.html'">🏠 Trang chủ</button>
+            <button onclick="logout()">🚪 Đăng xuất</button>
+        </div>
+    </header>
+
+    <h1>Quản lý phim</h1>
+
+    <!-- Form thêm/sửa phim -->
+    <div class="form">
+        <div class="form-control">
+            <input type="text" id="movieName" placeholder="Tên phim">
+        </div>
+        <div class="form-control">
+            <input type="url" id="movieImage" placeholder="Link ảnh phim">
+        </div>
+        <div class="form-control">
+            <input type="text" id="movieDesc" placeholder="Mô tả ngắn">
+        </div>
+        <button onclick="addOrUpdateMovie()">Thêm / Cập nhật phim</button>
+    </div>
+
+    <h2>Danh sách phim</h2>
+    <div id="movieList"></div>
+
+    <script>
+        // ==== Bảo vệ trang: chỉ admin mới vào ====
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(!currentUser || currentUser.role !== 'admin') {
+            alert('Bạn không có quyền truy cập trang này!');
+            window.location.href = 'dangnhap.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'dangnhap.html';
+        }
+
+        // ==== Quản lý phim ====
+        let movies = JSON.parse(localStorage.getItem('movies')) || [];
+        let editIndex = -1;
+
+        function renderMovies() {
+            const movieList = document.getElementById('movieList');
+            movieList.innerHTML = '';
+            movies.forEach((movie, index) => {
+                const div = document.createElement('div');
+                div.className = 'movie-item';
+                div.innerHTML = `
+                    <div style="display:flex; align-items:center;">
+                        <img src="${movie.image}" alt="${movie.name}">
+                        <div>
+                            <strong>${movie.name}</strong><br>
+                            <small>${movie.desc}</small>
+                        </div>
+                    </div>
+                    <div class="movie-actions">
+                        <button onclick="editMovie(${index})">✏️ Sửa</button>
+                        <button onclick="deleteMovie(${index})">🗑 Xóa</button>
+                    </div>
+                `;
+                movieList.appendChild(div);
+            });
+        }
+
+        function addOrUpdateMovie() {
+            const name = document.getElementById('movieName').value;
+            const image = document.getElementById('movieImage').value;
+            const desc = document.getElementById('movieDesc').value;
+
+            if(!name || !image) {
+                alert('Tên và ảnh phim là bắt buộc!');
+                return;
+            }
+
+            if(editIndex === -1) {
+                movies.push({name, image, desc});
+            } else {
+                movies[editIndex] = {name, image, desc};
+                editIndex = -1;
+            }
+
+            localStorage.setItem('movies', JSON.stringify(movies));
+            document.getElementById('movieName').value = '';
+            document.getElementById('movieImage').value = '';
+            document.getElementById('movieDesc').value = '';
+            renderMovies();
+        }
+
+        function editMovie(index) {
+            const movie = movies[index];
+            document.getElementById('movieName').value = movie.name;
+            document.getElementById('movieImage').value = movie.image;
+            document.getElementById('movieDesc').value = movie.desc;
+            editIndex = index;
+        }
+
+        function deleteMovie(index) {
+            if(confirm('Bạn có chắc muốn xóa phim này?')) {
+                movies.splice(index, 1);
+                localStorage.setItem('movies', JSON.stringify(movies));
+                renderMovies();
+            }
+        }
+
+        renderMovies();
+    </script>
+
+</body>
+</html>

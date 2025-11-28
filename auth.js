@@ -79,3 +79,34 @@ function dangNhap() {
         hienThiThongBao('Sai tên đăng nhập hoặc mật khẩu!');
     }
 }
+// Thông tin tài khoản (có thể mở rộng)
+const users = [
+    {username: 'admin', password: 'admin123', role: 'admin'},
+    {username: 'user1', password: 'user123', role: 'user'}
+];
+
+function dangNhap() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const thongbao = document.getElementById('thongbao');
+
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if(user) {
+        // Lưu trạng thái đăng nhập
+        localStorage.setItem('currentUser', JSON.stringify(user));
+
+        thongbao.style.color = 'green';
+        thongbao.textContent = 'Đăng nhập thành công!';
+
+        // Chuyển hướng
+        if(user.role === 'admin') {
+            window.location.href = 'admin.html';
+        } else {
+            window.location.href = 'index.html';
+        }
+    } else {
+        thongbao.style.color = 'red';
+        thongbao.textContent = 'Tên đăng nhập hoặc mật khẩu không đúng!';
+    }
+}
