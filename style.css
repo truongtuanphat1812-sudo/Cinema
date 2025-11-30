@@ -63,6 +63,29 @@ h1 {
     box-shadow: 0 0 10px #ff4c60, 0 0 20px #ff4c60;
     transform: scale(1.05);
 }
+/* Nút đăng xuất */
+.logout-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Orbitron', sans-serif;
+    color: #ff4c60;
+    background: transparent;
+    border: 2px solid #ff4c60;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.logout-btn:hover {
+    background: #ff4c60;
+    color: #fff;
+    box-shadow: 0 0 10px #ff4c60, 0 0 20px #ff4c60;
+    transform: scale(1.05);
+}
+
+
 
 /* =========================
    THANH TÌM KIẾM
